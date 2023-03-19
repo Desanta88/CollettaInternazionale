@@ -26,5 +26,12 @@ namespace CollettaInternazionale
         {
             return Id.GetHashCode();
         }
+        public override bool Equals(Object o)
+        {
+            if (!(o is Partecipante))
+                return false;
+
+            return Equals((Partecipante)o);
+        }
     }
 }
