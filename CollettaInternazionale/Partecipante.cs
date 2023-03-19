@@ -9,20 +9,22 @@ namespace CollettaInternazionale
     public class Partecipante
     {
         public string Nome { get; set; }
-        public float Quota { get; set; }
         public string Id { get; set; }
-        public Partecipante(string nome, float quota)
+        public Partecipante(string nome)
         {
             Nome = nome;
-            Quota = quota;
         }
-        public Partecipante() : this("N/A", 0)
+        public Partecipante() : this("N/A")
         {
 
         }
         public override string ToString()
         {
-            return Id + ";" + Nome + ";" + Quota.ToString();
+            return Id + ";" + Nome;
+        }
+        public override int GetHashCode()
+        {
+            return Id.GetHashCode();
         }
     }
 }
