@@ -68,29 +68,58 @@ namespace CollettaInternazionale
             else
                 throw new Exception("il reference del partecipante è null");
         }
-        /*public void sortByCash()
+        public void sortByCash()
         {
             Importo temp=new Importo();
             float t = 0;
-            string[] s;
             KeyValuePair<Partecipante, Importo> y = new KeyValuePair<Partecipante, Importo>();
+
+            for(int i = 0; i < Raccolta.Count; i++){
+                foreach (KeyValuePair<Partecipante, Importo> kvp in Raccolta)
+                {
+                    if (t > Raccolta[kvp.Key].Soldi)
+                    {
+
+                        Importo t1 = Raccolta[kvp.Key];
+                        Raccolta[kvp.Key] = temp;
+                        Raccolta[y.Key] = t1;
+                    }
+                    t = Raccolta[kvp.Key].Soldi;
+                    temp = Raccolta[kvp.Key];
+                    y = kvp;
+                }
+            }
+        }
+        public void sortByName()
+        {
+            Importo temp = new Importo();
+
             foreach (KeyValuePair<Partecipante, Importo> kvp in Raccolta)
             {
-                s=Raccolta[kvp.Key].ToString().Split(';');
-                if ((t > float.Parse(s[0])) && t>0)
+                foreach (KeyValuePair<Partecipante, Importo> kvp2 in Raccolta)
                 {
-                    Importo t1 = Raccolta[kvp.Key];
-                    Raccolta[kvp.Key] = temp;
-                    Raccolta[y.Key] = t1;
+                    if (string.Compare(kvp.Key.Nome, kvp2.Key.Nome) > 0)
+                    {
+                        Importo t1 = Raccolta[kvp.Key];
+                        Raccolta[kvp.Key] = temp;
+                        Raccolta[kvp2.Key] = t1;
+                    }
+                    temp = Raccolta[kvp.Key];
                 }
-                t = float.Parse(s[0]);
-                temp = Raccolta[kvp.Key];
-                y = kvp;
             }
-        }*/
+        }
+        public string getNome(float f)
+        {
+            foreach (KeyValuePair<Partecipante, Importo> kvp in Raccolta)
+            {
+                if (f==Raccolta[kvp.Key].Soldi)
+                    return kvp.Key.Nome;
+            }
+            return "partecipante non trovato";
+        }
 
-    }//key:P1 value:;12;
-    //key:P2 value:;14;
-    //key:P1 value:;11;
-    //key:P1 value:;9;
+    }//key:mensah value:;12;  
+    //key:cisco value:;14;
+    //key:cornball value:;11;
+    //key:sheesh value:;9;
 }

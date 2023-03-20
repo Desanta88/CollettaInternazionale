@@ -39,6 +39,10 @@
             this.EliminaQuota = new System.Windows.Forms.Button();
             this.textBoxV = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.ordinaCash = new System.Windows.Forms.Button();
+            this.OrdinaSoldi = new System.Windows.Forms.Button();
+            this.trovaPersona = new System.Windows.Forms.Button();
+            this.textBoxT = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // listView1
@@ -89,7 +93,7 @@
             // 
             this.totaleQuota.AutoSize = true;
             this.totaleQuota.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F);
-            this.totaleQuota.Location = new System.Drawing.Point(593, 353);
+            this.totaleQuota.Location = new System.Drawing.Point(641, 353);
             this.totaleQuota.Name = "totaleQuota";
             this.totaleQuota.Size = new System.Drawing.Size(69, 20);
             this.totaleQuota.TabIndex = 16;
@@ -142,11 +146,52 @@
             this.label3.TabIndex = 22;
             this.label3.Text = "Inserire la valuta dell\'importo";
             // 
+            // ordinaCash
+            // 
+            this.ordinaCash.Location = new System.Drawing.Point(27, 390);
+            this.ordinaCash.Name = "ordinaCash";
+            this.ordinaCash.Size = new System.Drawing.Size(101, 23);
+            this.ordinaCash.TabIndex = 23;
+            this.ordinaCash.Text = "Ordina per soldi";
+            this.ordinaCash.UseVisualStyleBackColor = true;
+            this.ordinaCash.Click += new System.EventHandler(this.ordinaCash_Click);
+            // 
+            // OrdinaSoldi
+            // 
+            this.OrdinaSoldi.Location = new System.Drawing.Point(213, 390);
+            this.OrdinaSoldi.Name = "OrdinaSoldi";
+            this.OrdinaSoldi.Size = new System.Drawing.Size(98, 23);
+            this.OrdinaSoldi.TabIndex = 24;
+            this.OrdinaSoldi.Text = "Ordina per nome";
+            this.OrdinaSoldi.UseVisualStyleBackColor = true;
+            this.OrdinaSoldi.Click += new System.EventHandler(this.OrdinaSoldi_Click);
+            // 
+            // trovaPersona
+            // 
+            this.trovaPersona.Location = new System.Drawing.Point(391, 390);
+            this.trovaPersona.Name = "trovaPersona";
+            this.trovaPersona.Size = new System.Drawing.Size(95, 23);
+            this.trovaPersona.TabIndex = 25;
+            this.trovaPersona.Text = "Trova persona";
+            this.trovaPersona.UseVisualStyleBackColor = true;
+            this.trovaPersona.Click += new System.EventHandler(this.trovaPersona_Click);
+            // 
+            // textBoxT
+            // 
+            this.textBoxT.Location = new System.Drawing.Point(506, 393);
+            this.textBoxT.Name = "textBoxT";
+            this.textBoxT.Size = new System.Drawing.Size(100, 20);
+            this.textBoxT.TabIndex = 26;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.textBoxT);
+            this.Controls.Add(this.trovaPersona);
+            this.Controls.Add(this.OrdinaSoldi);
+            this.Controls.Add(this.ordinaCash);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.textBoxV);
             this.Controls.Add(this.EliminaQuota);
@@ -178,6 +223,10 @@
         private System.Windows.Forms.Button EliminaQuota;
         private System.Windows.Forms.TextBox textBoxV;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button ordinaCash;
+        private System.Windows.Forms.Button OrdinaSoldi;
+        private System.Windows.Forms.Button trovaPersona;
+        private System.Windows.Forms.TextBox textBoxT;
     }
 }
 

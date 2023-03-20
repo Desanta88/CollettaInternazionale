@@ -81,5 +81,40 @@ namespace CollettaInternazionale
             listView1.Items.RemoveAt(selezionato);
             totaleQuota.Text = "Totale:" + colletta.QuotaTotale.ToString();
         }
+        private void Reload()
+        {
+            string[] s;
+            listView1.Items.Clear();
+            for (int a = 0; a < colletta.Raccolta.Count; a++)
+            {
+                string[] row = { colletta.Raccolta.ElementAt(a).Key.Id, colletta.Raccolta.ElementAt(a).Key.Nome, colletta.Raccolta.ElementAt(a).Value.Soldi.ToString(), colletta.Raccolta.ElementAt(a).Value.Valuta };
+                var listViewItem = new ListViewItem(row);
+                listView1.Items.Add(listViewItem);
+            }
+
+
+        }
+
+        private void ordinaCash_Click(object sender, EventArgs e)
+        {
+            colletta.sortByCash();
+            Reload();
+        }
+
+        private void OrdinaSoldi_Click(object sender, EventArgs e)
+        {
+            colletta.sortByName();
+            Reload();
+        }
+
+        private void trovaPersona_Click(object sender, EventArgs e)
+        {
+            string t;
+            if (textBoxT.Text != "")
+            {
+                t=colletta.getNome(float.Parse(textBoxT.Text));
+                MessageBox.Show(t);
+            }
+        }
     }
 }
