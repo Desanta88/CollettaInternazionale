@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CollettaInternazionale
 {
-    public class Importo
+    public class Importo:IComparable<Importo>,IEquatable<Importo>
     {
         public float Soldi { set; get; }
         public string Valuta { set; get; }
@@ -24,6 +24,27 @@ namespace CollettaInternazionale
         public override string ToString()
         {
             return ";" + Soldi.ToString() + ";" + Valuta;
+        }
+        public override int GetHashCode() => (Valuta, Soldi).GetHashCode();
+
+        public override bool Equals(Object o)
+        {
+            if (!(o is Partecipante))
+                return false;
+
+            return Equals((Partecipante)o);
+        }
+        public bool Equals(Importo i)
+        {
+            if (i == null)
+                return false;
+            if (this == i)
+                return true;
+            return i.Equals(i.Soldi);
+        }
+        public int CompareTo(Importo i)
+        {
+            return this.Soldi.CompareTo(i.Soldi);
         }
     }
 }

@@ -34,7 +34,7 @@ namespace CollettaInternazionale
                         key = "P" + n.ToString();
                     }
                 }
-                p.Id = key;
+               // p.Id = key;
                 RaccoltaP.Add(key, p);
                 Raccolta.Add(p, i);
                 QuotaTotale += i.Soldi;
@@ -48,7 +48,7 @@ namespace CollettaInternazionale
             {
                 QuotaTotale -= Raccolta[p].Soldi;
                 Raccolta.Remove(p);
-                RaccoltaP.Remove(p.Id);
+                //RaccoltaP.Remove(p.Id);
                 n--;
             }
             else
@@ -62,7 +62,7 @@ namespace CollettaInternazionale
                 n.Id = p.Id;
                 Raccolta.Remove(p);
                 Raccolta.Add(n,ni); 
-                RaccoltaP[n.Id] = n;
+               // RaccoltaP[n.Id] = n;
                 QuotaTotale += Raccolta[n].Soldi;
             }
             else
@@ -118,8 +118,8 @@ namespace CollettaInternazionale
             return "partecipante non trovato";
         }
 
-    }//key:mensah value:;12;  
-    //key:cisco value:;14;
-    //key:cornball value:;11;
-    //key:sheesh value:;9;
+    }//key:mensah value:;12;   cisco
+    //key:cisco value:;14;     cornball    
+    //key:cornball value:;11;  mensah
+    //key:sheesh value:;9;     sheesh
 }

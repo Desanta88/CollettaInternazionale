@@ -12,14 +12,16 @@ namespace CollettaInternazionale
 {
     public partial class Form1 : Form
     {
-        public CollettaP colletta;
+        public Dictionary<Partecipante,Importo> colletta;
         string[] intes = { "Key", "Partecipante", "Quota","Valuta" };
         Partecipante temp;
         Importo temp2;
+        public float QuotaTotale;
         public Form1()
         {
             InitializeComponent();
-            colletta = new CollettaP();
+            colletta = new Dictionary<Partecipante, Importo>();
+            QuotaTotale = 0;
             for (int i = 0; i < intes.Length; i++)
             {
                 listView1.Columns.Add(intes[i]);
@@ -28,15 +30,16 @@ namespace CollettaInternazionale
         private void AggiuntaQuota_Click(object sender, EventArgs e)
         {
             string ris = "";
-            temp = new Partecipante(textBoxP.Text);
-            temp2 = new Importo(float.Parse(textBoxQ.Text), textBoxV.Text);
             if (textBoxP.Text != "" && textBoxQ.Text != "" && textBoxV.Text!="")
             {
-                colletta.Aggiungi(temp,temp2);
+                temp = new Partecipante(textBoxP.Text);
+                temp2 = new Importo(float.Parse(textBoxQ.Text), textBoxV.Text);
+                colletta.Add(temp,temp2);
+                QuotaTotale += colletta[temp].Soldi;
                 ris = temp.ToString() + temp2.ToString();
                 ListViewItem riga = new ListViewItem(ris.Split(';'));
                 listView1.Items.Add(riga);
-                totaleQuota.Text = "Totale:" + colletta.QuotaTotale.ToString();
+                totaleQuota.Text = "Totale:" + QuotaTotale.ToString();
                 textBoxP.Text = "";
                 textBoxQ.Text = "";
                 textBoxV.Text = "";
@@ -52,16 +55,24 @@ namespace CollettaInternazionale
             temp = new Partecipante(textBoxP.Text);
             temp2 = new Importo(float.Parse(textBoxQ.Text), textBoxV.Text);
             if (listView1.SelectedIndices.Count > 0)
-                selezionato = listView1.SelectedIndices[0];
-            key = listView1.SelectedItems[0].SubItems[0].Text;
-            if (textBoxP.Text != "" && textBoxQ.Text != "")
             {
-                colletta.Modifica(colletta.RaccoltaP[key],temp,colletta.Raccolta[colletta.RaccoltaP[key]],temp2);
-                listView1.SelectedItems[0].SubItems[1].Text = textBoxP.Text;
-                listView1.SelectedItems[0].SubItems[2].Text = textBoxQ.Text;
-                listView1.SelectedItems[0].SubItems[3].Text = textBoxV.Text;
-                totaleQuota.Text = "Totale:" + colletta.QuotaTotale.ToString();
-                textBoxP.Text = "";
+                selezionato = listView1.SelectedIndices[0];
+            }
+            key = listView1.SelectedItems[0].SubItems[0].Text;
+            if (textBoxV.Text != "" && textBoxQ.Text != "")
+            {
+                foreach(KeyValuePair<Partecipante, Importo> kvp in colletta)
+                {
+                    if (kvp.Key.Id == int.Parse(key))
+                    {
+                        QuotaTotale -= colletta[kvp.Key].Soldi;
+                        colletta[kvp.Key].Soldi = float.Parse(textBoxQ.Text);
+                        QuotaTotale += colletta[kvp.Key].Soldi;
+                        Reload();
+                    }
+
+                }
+                totaleQuota.Text = "Totale:" + QuotaTotale.ToString();
                 textBoxQ.Text = "";
                 textBoxV.Text = "";
             }
@@ -71,23 +82,30 @@ namespace CollettaInternazionale
 
         private void EliminaQuota_Click(object sender, EventArgs e)
         {
+            Partecipante tmp;
             int selezionato = 0;
-            string key;
+            string key,name;
             if (listView1.SelectedIndices.Count > 0)
                 selezionato = listView1.SelectedIndices[0];
             key = listView1.SelectedItems[0].Text;
-            temp = colletta.RaccoltaP[key];
-            colletta.Rimuovi(temp);
+            name = listView1.SelectedItems[0].SubItems[1].Text;
+            tmp = new Partecipante(name); 
+            tmp.Id = int.Parse(key);
+            QuotaTotale -= colletta[tmp].Soldi;
+            colletta.Remove(tmp);
             listView1.Items.RemoveAt(selezionato);
-            totaleQuota.Text = "Totale:" + colletta.QuotaTotale.ToString();
+            totaleQuota.Text = "Totale:" + QuotaTotale.ToString();
+            foreach (KeyValuePair<Partecipante, Importo> kvp in colletta)
+            {
+                MessageBox.Show(kvp.Key.Nome);
+            }
         }
         private void Reload()
         {
-            string[] s;
             listView1.Items.Clear();
-            for (int a = 0; a < colletta.Raccolta.Count; a++)
+            for (int a = 0; a < colletta.Count; a++)
             {
-                string[] row = { colletta.Raccolta.ElementAt(a).Key.Id, colletta.Raccolta.ElementAt(a).Key.Nome, colletta.Raccolta.ElementAt(a).Value.Soldi.ToString(), colletta.Raccolta.ElementAt(a).Value.Valuta };
+                string[] row = { colletta.ElementAt(a).Key.Id.ToString(), colletta.ElementAt(a).Key.Nome, colletta.ElementAt(a).Value.Soldi.ToString(), colletta.ElementAt(a).Value.Valuta };
                 var listViewItem = new ListViewItem(row);
                 listView1.Items.Add(listViewItem);
             }
@@ -97,23 +115,32 @@ namespace CollettaInternazionale
 
         private void ordinaCash_Click(object sender, EventArgs e)
         {
-            colletta.sortByCash();
+            //colletta.sortByCash();
             Reload();
         }
 
         private void OrdinaSoldi_Click(object sender, EventArgs e)
         {
-            colletta.sortByName();
+            //colletta.sortByName();
             Reload();
+        }
+        private string TrovaP(float s,string v)
+        {
+            foreach (KeyValuePair<Partecipante, Importo> kvp in colletta)
+            {
+                if (colletta[kvp.Key].Valuta == v && colletta[kvp.Key].Soldi == s)
+                {
+                    return kvp.Key.Nome;
+                }
+            }
+            return "Partecipante non trovato";
         }
 
         private void trovaPersona_Click(object sender, EventArgs e)
         {
-            string t;
-            if (textBoxT.Text != "")
+            if (textBoxT.Text != "" && textBoxT2.Text!="")
             {
-                t=colletta.getNome(float.Parse(textBoxT.Text));
-                MessageBox.Show(t);
+                MessageBox.Show(TrovaP(float.Parse(textBoxT.Text),textBoxT2.Text));
             }
         }
     }

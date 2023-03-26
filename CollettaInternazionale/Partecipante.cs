@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 
 namespace CollettaInternazionale
 {
-    public class Partecipante
+    public class Partecipante:IComparable<Partecipante>,IEquatable<Partecipante>
     {
         public string Nome { get; set; }
-        public string Id { get; set; }
+        public int Id { get; set; }
         public Partecipante(string nome)
         {
             Nome = nome;
+            Id = GetHashCode();
         }
         public Partecipante() : this("N/A")
         {
@@ -22,16 +23,25 @@ namespace CollettaInternazionale
         {
             return Id + ";" + Nome;
         }
-        public override int GetHashCode()
-        {
-            return Id.GetHashCode();
-        }
+        public override int GetHashCode()=>(Nome).GetHashCode();
         public override bool Equals(Object o)
         {
             if (!(o is Partecipante))
                 return false;
 
             return Equals((Partecipante)o);
+        }
+        public bool Equals(Partecipante p)
+        {
+            if (p == null)
+                return false;
+            if (this == p)
+                return true;
+            return Nome.Equals(p.Nome);
+        }
+        public int CompareTo(Partecipante p)
+        {
+            return Nome.CompareTo(p.Nome);
         }
     }
 }

@@ -43,6 +43,7 @@
             this.OrdinaSoldi = new System.Windows.Forms.Button();
             this.trovaPersona = new System.Windows.Forms.Button();
             this.textBoxT = new System.Windows.Forms.TextBox();
+            this.textBoxT2 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // listView1
@@ -183,11 +184,19 @@
             this.textBoxT.Size = new System.Drawing.Size(100, 20);
             this.textBoxT.TabIndex = 26;
             // 
+            // textBoxT2
+            // 
+            this.textBoxT2.Location = new System.Drawing.Point(612, 393);
+            this.textBoxT2.Name = "textBoxT2";
+            this.textBoxT2.Size = new System.Drawing.Size(24, 20);
+            this.textBoxT2.TabIndex = 27;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.textBoxT2);
             this.Controls.Add(this.textBoxT);
             this.Controls.Add(this.trovaPersona);
             this.Controls.Add(this.OrdinaSoldi);
@@ -227,6 +236,7 @@
         private System.Windows.Forms.Button OrdinaSoldi;
         private System.Windows.Forms.Button trovaPersona;
         private System.Windows.Forms.TextBox textBoxT;
+        private System.Windows.Forms.TextBox textBoxT2;
     }
 }
 
